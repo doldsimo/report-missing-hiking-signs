@@ -1,0 +1,27 @@
+import { IonContent, IonHeader, IonPage, IonText, IonTitle, IonToolbar } from '@ionic/react';
+
+const Tab2 = () => {
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Tab 2</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">Tab 2</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <div className="ion-padding">
+            <IonText>
+                Tab 2
+            </IonText>
+        </div>
+      </IonContent>
+    </IonPage>
+  );
+};
+
+export default Tab2;

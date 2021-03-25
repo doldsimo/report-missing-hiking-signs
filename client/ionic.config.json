@@ -1,0 +1,7 @@
+{
+  "name": "report-missing-hiking-signs",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
