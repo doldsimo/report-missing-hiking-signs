@@ -25,17 +25,15 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-
-
 const App = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/camera" component={CameraTab} />
-          <Route exact path="/tab2" component={Tab2} />
+          <Route exact path="/tab2" render={Tab2} />
           <Route exact path="/tab3" component={Tab3} />
-          <Route path="/"><Redirect to="/camera" /></Route>
+          <Route exact path="/"><Redirect to="/camera" /></Route>
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">
