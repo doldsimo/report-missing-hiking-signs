@@ -31,7 +31,7 @@ const App = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/camera" component={CameraTab} />
-          <Route exact path="/tab2" render={Tab2} />
+          <Route exact path="/tab2" component={Tab2} />
           <Route exact path="/tab3" component={Tab3} />
           <Route exact path="/"><Redirect to="/camera" /></Route>
         </IonRouterOutlet>

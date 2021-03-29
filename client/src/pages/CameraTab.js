@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet } from '@ionic/react';
-import { camera, trash, close } from 'ionicons/icons';
+import { camera } from 'ionicons/icons';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
 
 const CameraTab = () => {
