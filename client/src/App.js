@@ -3,7 +3,7 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { square, triangle, images } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import CameraTab from './pages/CameraTab';
-import Tab2 from './pages/Tab2';
+import GeolocationTab from './pages/GeolocationTab';
 import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
@@ -31,7 +31,7 @@ const App = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/camera" component={CameraTab} />
-          <Route exact path="/tab2" component={Tab2} />
+          <Route exact path="/geolocation" component={GeolocationTab} />
           <Route exact path="/tab3" component={Tab3} />
           <Route exact path="/"><Redirect to="/camera" /></Route>
         </IonRouterOutlet>
@@ -41,7 +41,7 @@ const App = () => (
             <IonIcon icon={images} />
             <IonLabel>Melden</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+          <IonTabButton tab="geolocation" href="/geolocation">
             <IonIcon icon={triangle} />
             <IonLabel>Tab 2</IonLabel>
           </IonTabButton>
