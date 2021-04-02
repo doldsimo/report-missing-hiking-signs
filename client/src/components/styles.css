@@ -1,8 +1,3 @@
-.GeoMap {
-    width: 100%;
-    height: 100%;
-}
-
 .geoFooter {
     position: absolute;
     bottom: 0;
@@ -10,6 +5,7 @@
     left: 0;
     right: 0;
     margin: 16px;
+    z-index: 999;
 }
 
 .geoAbs {
@@ -19,6 +15,7 @@
     left: 0;
     right: 0;
     margin: 16px;
+    z-index: 999;
 }
 .pointer {
     border-top: 20px solid red;

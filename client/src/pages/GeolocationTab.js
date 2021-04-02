@@ -1,36 +1,30 @@
-import React, { Component } from 'react';
-import { Capacitor, Plugins, CallbackID } from "@capacitor/core";
+import React, { useState, useEffect } from 'react';
+import { Capacitor, Plugins } from "@capacitor/core";
 import LocationService from '../hooks/useGeolocationService';
 
 import GeolocationView from '../components/GeolocationView';
 
 const { Geolocation, Toast } = Plugins;
 
-class GeolocationTab extends Component {
-  state;
-  watchId = '';
-  constructor(props) {
-    super(props);
-    this.state = {
-      center: {
-        lat: 12.934485599999999,
-        lng: 77.6192336,
-      },
-      latitude: 18.934485599999999,
-      longitude: 87.6192336,
-      loading: false
-    };
-  }
+const GeolocationTab = () => {
+  const [position, setPosition] = useState([48.051776, 8.206841]);
+  const [loading, setLoading] = useState(false);
+  let watchId = '';
 
-  checkPermissions = async () => {
+  useEffect(() => {
+    console.log("Mounted");
+    checkPermissions();
+  }, [])
+
+  const checkPermissions = async () => {
     const hasPermission = await LocationService.checkGPSPermission();
     if (hasPermission) {
       if (Capacitor.isNative) {
         const canUseGPS = await LocationService.askToTurnOnGPS();
-        this.postGPSPermission(canUseGPS);
+        postGPSPermission(canUseGPS);
       }
       else {
-        this.postGPSPermission(true);
+        postGPSPermission(true);
       }
     }
     else {
@@ -39,10 +33,10 @@ class GeolocationTab extends Component {
       if (permission === 'CAN_REQUEST' || permission === 'GOT_PERMISSION') {
         if (Capacitor.isNative) {
           const canUseGPS = await LocationService.askToTurnOnGPS();
-          this.postGPSPermission(canUseGPS);
+          postGPSPermission(canUseGPS);
         }
         else {
-          this.postGPSPermission(true);
+          postGPSPermission(true);
         }
       }
       else {
@@ -53,9 +47,9 @@ class GeolocationTab extends Component {
     }
   }
 
-  postGPSPermission = async (canUseGPS) => {
+  const postGPSPermission = async (canUseGPS) => {
     if (canUseGPS) {
-      this.watchPosition();
+      watchPosition();
     }
     else {
       await Toast.show({
@@ -64,69 +58,40 @@ class GeolocationTab extends Component {
     }
   }
 
-  watchPosition = async () => {
+  const watchPosition = async () => {
     try {
-      this.setState({
-        loading: true
-      })
-      this.watchId = Geolocation.watchPosition({}, (position, err) => {
+      setLoading(true);
+      watchId = Geolocation.watchPosition({}, (position, err) => {
 
         if (err) {
           return;
         }
-        this.setState({
-          center: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          },
-          loading: false
-        }, () => {
-          this.clearWatch();
-        })
+        setPosition([position.coords.latitude, position.coords.longitude]);
+        setLoading(false);
+        clearWatch();
       })
     }
     catch (err) { console.log('err', err) }
   }
 
-  clearWatch() {
-    if (this.watchId != null) {
-      Geolocation.clearWatch({ id: this.watchId });
+  const clearWatch = () => {
+    if (watchId != null) {
+      Geolocation.clearWatch({ id: watchId });
     }
-    this.setState({
-      loading: false
-    })
+    setLoading(false);
   }
-  render() {
-    const { center, loading } = this.state
-    return (
-      // <IonPage>
-      //   <IonHeader>
-      //     <IonToolbar>
-      //       <IonTitle>Tab 2</IonTitle>
-      //     </IonToolbar>
-      //   </IonHeader>
-      //   <IonContent fullscreen>
-      //     <IonHeader collapse="condense">
-      //       <IonToolbar>
-      //         <IonTitle size="large">Tab 2</IonTitle>
-      //       </IonToolbar>
-      //     </IonHeader>
-      //     <div className="ion-padding">
-      //         <IonText>
-      //             Tab 2
-      //         </IonText>
-      //     </div>
-      <GeolocationView
-        center={center}
-        latitude={center.lat}
-        longitude={center.lng}
-        getGeoLocation={this.checkPermissions}
-        loading={loading} />
-      //   </IonContent>
-      // </IonPage>
-    );
 
-  }
+
+  return (
+    <>
+      <GeolocationView
+        latitude={position[0]}
+        longitude={position[1]}
+        getGeoLocation={checkPermissions}
+        loading={loading}
+      />
+    </>
+  );
 }
 
 export default GeolocationTab;
