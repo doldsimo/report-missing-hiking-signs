@@ -1,8 +1,8 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
-import { square, triangle, images } from 'ionicons/icons';
+import { alertCircleOutline, mapOutline } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
-import CameraTab from './pages/CameraTab';
+import CameraTab from './pages/ReportTab';
 import GeolocationTab from './pages/GeolocationTab';
 import Tab3 from './pages/Tab3';
 
@@ -30,24 +30,20 @@ const App = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/camera" component={CameraTab} />
+          <Route exact path="/report" component={CameraTab} />
           <Route exact path="/geolocation" component={GeolocationTab} />
           <Route exact path="/tab3" component={Tab3} />
-          <Route exact path="/"><Redirect to="/camera" /></Route>
+          <Route exact path="/"><Redirect to="/report" /></Route>
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">
-          <IonTabButton tab="camera" href="/camera">
-            <IonIcon icon={images} />
+          <IonTabButton tab="report" href="/report">
+            <IonIcon icon={alertCircleOutline} />
             <IonLabel>Melden</IonLabel>
           </IonTabButton>
           <IonTabButton tab="geolocation" href="/geolocation">
-            <IonIcon icon={triangle} />
-            <IonLabel>Geolocation</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+            <IonIcon icon={mapOutline} />
+            <IonLabel>Karte</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
