@@ -43,7 +43,7 @@ const App = () => (
           </IonTabButton>
           <IonTabButton tab="geolocation" href="/geolocation">
             <IonIcon icon={triangle} />
-            <IonLabel>Tab 2</IonLabel>
+            <IonLabel>Geolocation</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={square} />
