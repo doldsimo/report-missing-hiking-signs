@@ -17,6 +17,15 @@
     margin: 16px;
     z-index: 999;
 }
+
+.card-Legend {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 16px;
+    z-index: 999;
+}
+
 .pointer {
     border-top: 20px solid red;
     border-left: 4px solid transparent;

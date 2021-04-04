@@ -38,7 +38,6 @@ const CameraTab = () => {
         <IonActionSheet
           isOpen={isActionSheetOpen}
           onDidDismiss={() => {
-            console.log("dismiss");
             setIsActionSheetOpen(false);
           }}
           buttons={[{
@@ -46,14 +45,13 @@ const CameraTab = () => {
             role: 'destructive',
             icon: camera,
             handler: () => {
-              console.log('Kamera öffnen');
               setIsActionSheetOpen(false);
+              takePhoto();
             }
           }, {
             text: 'Gallery',
             icon: imagesOutline,
             handler: () => {
-              console.log('Gallery öffnen');
               setIsActionSheetOpen(false);
             }
           }]}

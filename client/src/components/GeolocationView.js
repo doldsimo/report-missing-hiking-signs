@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import GoogleMapReact from 'google-map-react'; löschen der Abhängigkeit
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import {
-    IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonText, IonButton, IonItem, IonLabel, IonSpinner, useIonViewDidEnter, IonLoading
+    IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonText, IonButton, IonItem, IonLabel, IonSpinner, useIonViewDidEnter, IonLoading, IonIcon
 } from '@ionic/react';
+import { informationCircleOutline } from 'ionicons/icons';
 import './styles.css';
+import CardLegend from './CardLegend';
 
-
-// const position = [51.505, -0.09];
 
 const HomeView = (props) => {
     const { latitude, longitude, getGeoLocation, loading } = props
+    const [isLegendOpen, setIsLegendOpen] = useState(false)
 
     let position = [latitude, longitude];
 
@@ -39,19 +40,20 @@ const HomeView = (props) => {
                     />
                     :
                     <>
-                        <MapContainer center={position} zoom={13} style={{ height: "100vh", width: "100%" }}>
+                        <MapContainer center={position} zoom={13} style={{ height: "100%", width: "100%" }}>
                             <TileLayer
                                 detectRetina={true}
                                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
                             <Marker position={position}>
-                                <Popup>
+                                <Popup style={{backgroundColor:"red"}}>
                                     Current position
-                        </Popup>
+                                </Popup>
                             </Marker>
                         </MapContainer>
 
+                        
                         <IonItem className='geoAbs'>
                             <IonLabel>
                                 <IonText>lat={latitude}</IonText>
@@ -59,6 +61,7 @@ const HomeView = (props) => {
                             </IonLabel>
                         </IonItem>
                         <IonButton onClick={getGeoLocation} className='geoFooter'>Get Current Location</IonButton>
+                        <CardLegend isLegendOpen={isLegendOpen} setIsLegendOpen={setIsLegendOpen} />
                     </>
                 }
             </IonContent>
