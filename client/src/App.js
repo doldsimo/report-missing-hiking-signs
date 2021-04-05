@@ -4,7 +4,6 @@ import { alertCircleOutline, mapOutline } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import CameraTab from './pages/ReportTab';
 import GeolocationTab from './pages/GeolocationTab';
-import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,7 +31,7 @@ const App = () => (
         <IonRouterOutlet>
           <Route exact path="/report" component={CameraTab} />
           <Route exact path="/geolocation" component={GeolocationTab} />
-          <Route exact path="/tab3" component={Tab3} />
+          {/* <Route exact path="/report-post" component={ReportPost} /> */}
           <Route exact path="/"><Redirect to="/report" /></Route>
         </IonRouterOutlet>
 

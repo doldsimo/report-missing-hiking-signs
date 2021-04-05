@@ -4,6 +4,7 @@ import { useFilesystem, base64FromPath } from '@ionic/react-hooks/filesystem';
 import { useStorage } from '@ionic/react-hooks/storage';
 import { isPlatform } from '@ionic/react';
 import { CameraResultType, CameraSource, CameraPhoto, Capacitor, FilesystemDirectory } from "@capacitor/core";
+import { useHistory } from 'react-router';
 
 // Key to get the photos from the filesystem
 const PHOTO_STORAGE = "photos";
@@ -13,43 +14,50 @@ export function usePhotoGallery() {
     const { getPhoto } = useCamera();
     const { deleteFile, getUri, readFile, writeFile } = useFilesystem();
     const { get, set } = useStorage();
-    const [photos, setPhotos] = useState([]);
+    const [photo, setPhotos] = useState({});
 
     // For loading the photos when hook loads
     useEffect(() => {
         console.log("hook loaded");
         const loadSaved = async () => {
-            const photosString = await get('photos');
-            const photosInStorage = (photosString ? JSON.parse(photosString) : []);
+            // const photosString = await get('photos');
+            const photosInStorage = ([]);
             // If running on the web...
-            if (!isPlatform('hybrid')) {
-                for (let photo of photosInStorage) {
-                    const file = await readFile({
-                        path: photo.filepath,
-                        directory: FilesystemDirectory.Data
-                    });
-                    // Web platform only: Load photo as base64 data
-                    photo.webviewPath = `data:image/jpeg;base64,${file.data}`;
-                }
-            }
-            setPhotos(photosInStorage);
+            // if (!isPlatform('hybrid')) {
+            //     for (let photo of photosInStorage) {
+            //         const file = await readFile({
+            //             path: photo.filepath,
+            //             directory: FilesystemDirectory.Data
+            //         });
+            //         // Web platform only: Load photo as base64 data
+            //         photo.webviewPath = `data:image/jpeg;base64,${file.data}`;
+            //     }
+            // }
+            // setPhotos(photosInStorage);
         };
         loadSaved();
-    }, [get, readFile]);
+    }, [readFile]);
 
-    const takePhoto = async () => {
-        const cameraPhoto = await getPhoto({
-            resultType: CameraResultType.Uri,
-            source: CameraSource.Camera,
-            quality: 100
-        });
-        // For Saving the photo
-        const fileName = new Date().getTime() + '.jpeg';
-        const savedFileImage = await savePicture(cameraPhoto, fileName);
-        const newPhotos = [savedFileImage, ...photos];
-        setPhotos(newPhotos);
-        // safe image in storage
-        set(PHOTO_STORAGE, JSON.stringify(newPhotos));
+
+    const takePhoto = async (setIsReportModalOpen) => {
+        try {
+            const cameraPhoto = await getPhoto({
+                resultType: CameraResultType.Uri,
+                source: CameraSource.Camera,
+                quality: 100
+            });
+            // For Saving the photo
+            const fileName = new Date().getTime() + '.jpeg';
+            const savedFileImage = await savePicture(cameraPhoto, fileName);
+            const newPhoto = savedFileImage;
+            setPhotos(newPhoto);
+            setIsReportModalOpen(true);
+            // safe image in storage
+            // set(PHOTO_STORAGE, JSON.stringify(newPhotos));
+
+        } catch (error) {
+            console.log("Foto Abgebrochen");
+        }
     };
 
     // For saving the photo in the filesystem
@@ -87,7 +95,7 @@ export function usePhotoGallery() {
     };
 
     return {
-        photos,
+        photo,
         takePhoto
     };
 }

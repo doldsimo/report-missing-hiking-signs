@@ -1,11 +1,13 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet, IonTextarea, IonText, IonButton } from '@ionic/react';
 import { camera, imagesOutline } from 'ionicons/icons';
 import { useState } from 'react';
+import ReportPostModal from '../components/ReportPostModal';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
 
 const CameraTab = () => {
-  const { photos, takePhoto } = usePhotoGallery();
-  const [isActionSheetOpen, setIsActionSheetOpen] = useState(false)
+  const { photo, takePhoto } = usePhotoGallery();
+  const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   return (
     <IonPage>
       <IonHeader>
@@ -20,15 +22,7 @@ const CameraTab = () => {
           </IonToolbar>
         </IonHeader>
         <IonText>Melde fehlende Beschilderungen</IonText>
-        <IonGrid>
-          <IonRow>
-            {photos.map((photo, index) => (
-              <IonCol size="6" key={index}>
-                <IonImg src={photo.webviewPath} />
-              </IonCol>
-            ))}
-          </IonRow>
-        </IonGrid>
+
         <IonFab vertical="bottom" horizontal="center" slot="fixed">
           <IonFabButton onClick={() => setIsActionSheetOpen(true)}>
             <IonIcon icon={camera}></IonIcon>
@@ -46,7 +40,7 @@ const CameraTab = () => {
             icon: camera,
             handler: () => {
               setIsActionSheetOpen(false);
-              takePhoto();
+              takePhoto(setIsReportModalOpen);
             }
           }, {
             text: 'Gallery',
@@ -57,6 +51,7 @@ const CameraTab = () => {
           }]}
         >
         </IonActionSheet>
+        <ReportPostModal isReportModalOpen={isReportModalOpen} setIsReportModalOpen={setIsReportModalOpen} photo={photo} takePhoto={takePhoto} />
       </IonContent>
     </IonPage>
   );
