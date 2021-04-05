@@ -20,7 +20,7 @@ const CameraTab = () => {
           </IonToolbar>
         </IonHeader>
         <IonText>Melde fehlende Beschilderungen</IonText>
-        {/* <IonGrid>
+        <IonGrid>
           <IonRow>
             {photos.map((photo, index) => (
               <IonCol size="6" key={index}>
@@ -28,7 +28,7 @@ const CameraTab = () => {
               </IonCol>
             ))}
           </IonRow>
-        </IonGrid> */}
+        </IonGrid>
         <IonFab vertical="bottom" horizontal="center" slot="fixed">
           <IonFabButton onClick={() => setIsActionSheetOpen(true)}>
             <IonIcon icon={camera}></IonIcon>
