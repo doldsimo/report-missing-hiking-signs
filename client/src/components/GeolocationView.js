@@ -43,17 +43,17 @@ const HomeView = (props) => {
                         <MapContainer center={position} zoom={13} style={{ height: "100%", width: "100%" }}>
                             <TileLayer
                                 detectRetina={true}
-                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                attribution={'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' + ' Intern'}
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
                             <Marker position={position}>
-                                <Popup style={{backgroundColor:"red"}}>
+                                <Popup style={{ backgroundColor: "red" }}>
                                     Current position
                                 </Popup>
                             </Marker>
                         </MapContainer>
 
-                        
+
                         <IonItem className='geoAbs'>
                             <IonLabel>
                                 <IonText>lat={latitude}</IonText>

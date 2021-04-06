@@ -3,6 +3,7 @@ import { camera, imagesOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import ReportPostModal from '../components/ReportPostModal';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
+import { isPlatform } from '@ionic/react';
 
 const CameraTab = () => {
   const { photo, takePhoto } = usePhotoGallery();
@@ -34,26 +35,38 @@ const CameraTab = () => {
           onDidDismiss={() => {
             setIsActionSheetOpen(false);
           }}
-          buttons={[{
-            text: 'Kamera',
-            role: 'destructive',
-            icon: camera,
-            handler: () => {
-              setIsActionSheetOpen(false);
-              takePhoto(setIsReportModalOpen);
-            }
-          }, {
-            text: 'Gallery',
-            icon: imagesOutline,
-            handler: () => {
-              setIsActionSheetOpen(false);
-            }
-          }]}
+          buttons={isPlatform("hybrid") ?
+            [
+              {
+                text: 'Kamera',
+                role: 'destructive',
+                icon: camera,
+                handler: () => {
+                  setIsActionSheetOpen(false);
+                  takePhoto(setIsReportModalOpen, false);
+                }
+              }, {
+                text: 'Gallery',
+                icon: imagesOutline,
+                handler: () => {
+                  setIsActionSheetOpen(false);
+                  takePhoto(setIsReportModalOpen, true);
+                }
+              }
+            ] : [{
+              text: 'Gallery',
+              icon: imagesOutline,
+              handler: () => {
+                setIsActionSheetOpen(false);
+                takePhoto(setIsReportModalOpen, true);
+              }
+            }]
+          }
         >
         </IonActionSheet>
         <ReportPostModal isReportModalOpen={isReportModalOpen} setIsReportModalOpen={setIsReportModalOpen} photo={photo} takePhoto={takePhoto} />
       </IonContent>
-    </IonPage>
+    </IonPage >
   );
 };
 

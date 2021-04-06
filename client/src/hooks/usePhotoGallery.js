@@ -39,13 +39,17 @@ export function usePhotoGallery() {
     }, [readFile]);
 
 
-    const takePhoto = async (setIsReportModalOpen) => {
+    const takePhoto = async (setIsReportModalOpen, isGallery) => {
         try {
             const cameraPhoto = await getPhoto({
                 resultType: CameraResultType.Uri,
-                source: CameraSource.Camera,
-                quality: 100
+                source: isGallery ? CameraSource.Photos : CameraSource.Camera,
+                quality: 100,
+                saveToGallery: false,
+                // width: "50%",
+                // height: "50%"
             });
+
             // For Saving the photo
             const fileName = new Date().getTime() + '.jpeg';
             const savedFileImage = await savePicture(cameraPhoto, fileName);
