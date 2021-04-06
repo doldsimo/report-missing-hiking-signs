@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { IonButton, IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonModal, IonRow, IonTextarea, IonThumbnail, IonTitle, IonToolbar } from '@ionic/react';
-import { camera } from 'ionicons/icons';
+import { IonButton, IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonModal, IonRow, IonTextarea, IonThumbnail, IonTitle, IonToolbar, useIonViewDidEnter } from '@ionic/react';
+import OwnLocationMap from './OwnLocationMap/OwnLocationMap';
 
 const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takePhoto }) => {
     const [text, setText] = useState("");
+    // let position = [48.051776, 8.206841];
+
+
     return (
-        <IonModal isOpen={isReportModalOpen} onDidDismiss={() => { setIsReportModalOpen(false) }}>
+        <IonModal isOpen={isReportModalOpen} onDidDismiss={() => { setIsReportModalOpen(false) }} onDidPresent={() => window.dispatchEvent(new Event('resize'))}>
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>Foto und Standort auswählen</IonTitle>
@@ -26,9 +29,9 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
                     <div style={{ maxWidth: "500px", margin: "auto" }}>
                         <p>Wähle deinen Standort</p>
                     </div>
-
-                    <IonButton onClick={() => console.log("sendToDB")}>Send to DB</IonButton>
                 </div>
+                <OwnLocationMap />
+                <IonButton onClick={() => console.log("sendToDB")}>Send to DB</IonButton>
             </IonContent>
             <IonButton onClick={() => setIsReportModalOpen(false)}>Close Modal</IonButton>
         </IonModal >
