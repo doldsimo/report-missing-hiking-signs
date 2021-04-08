@@ -13,8 +13,9 @@ export const getReportPosts = async (req, res) => {
 
 export const createReportPosts = async (req, res) => {
     const post = req.body;
+    console.log("create Report Post");
 
-    console.log("Post: ", post);
+    // console.log("Post: ", post);
     const newReport = new ReportPost({ ...post, createdAt: new Date().toISOString() });
     try {
         await newReport.save();
