@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
 
 const reportPostSchema = mongoose.Schema({
-    description: String,
-    image: String,
+    description: { type: String, required: false },
+    img: { type: String, required: true },
     coordinates: { type: [Number, Number], required: true },
     createdAt: {
         type: Date,
-        default: new Date()
+        default: new Date(),
+        required: true
     },
 });
 
