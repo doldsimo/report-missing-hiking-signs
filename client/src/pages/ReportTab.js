@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet, IonTextarea, IonText, IonButton } from '@ionic/react';
 import { camera, imagesOutline } from 'ionicons/icons';
 import { useState } from 'react';
-import ReportPostModal from '../components/ReportPostModal';
+import ReportPostModal from '../components/ReportPostModal/ReportPostModal';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import { isPlatform } from '@ionic/react';
 

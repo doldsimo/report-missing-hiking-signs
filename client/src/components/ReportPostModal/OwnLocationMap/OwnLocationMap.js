@@ -4,12 +4,11 @@ import React, { useRef, useState } from 'react';
 // import { useIonViewDidEnter } from '@ionic/react';
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet';
 
-import LocationService from '../../hooks/useGeolocationService';
+import LocationService from '../../../hooks/useGeolocationService';
 
 
-const OwnLocationMap = () => {
+const OwnLocationMap = ({location, setLocation}) => {
     const [map, setMap] = useState(null);
-    const [location, setLocation] = useState([48.051776, 8.206841]);
     const [toastMessage, setToastMessage] = useState("");
 
 
