@@ -6,7 +6,7 @@ import {
 } from '@ionic/react';
 import { informationCircleOutline } from 'ionicons/icons';
 import './styles.css';
-import CardLegend from './CardLegend';
+import CardLegend from './CardLegend/CardLegend';
 
 
 const HomeView = (props) => {

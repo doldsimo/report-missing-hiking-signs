@@ -1,8 +1,62 @@
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Capacitor } from "@capacitor/core";
+import { isPlatform } from '@ionic/react';
+
+import { Plugins } from '@capacitor/core';
+
+const { Geolocation } = Plugins;
 
 const LocationService = {
+
+    getCurrentLocation: async () => {
+        try {
+            const hasPermission = await LocationService.checkGPSPermission();
+            if (hasPermission) {
+                // hybrid = capacitor (android or ios)
+                if (isPlatform("hybrid")) {
+                    const canUseGPS = await LocationService.askToTurnOnGPS();
+                    let coordinates;
+                    if (canUseGPS) {
+                        // Get Coordinates 
+                        coordinates = await Geolocation.getCurrentPosition();
+                    } else {
+                        // Please turn on GPS to get location!!!
+                        coordinates = 'Turn on GPS'
+                    }
+                    return coordinates
+                } else {
+                    // Get Coordinates 
+                    const coordinates = await Geolocation.getCurrentPosition();
+                    return coordinates;
+                }
+            } else {
+                const permission = await LocationService.requestGPSPermission();
+                if (permission === 'CAN_REQUEST' || permission === 'GOT_PERMISSION') {
+                    if (Capacitor.isNative) {
+                        const canUseGPS = await LocationService.askToTurnOnGPS();
+                        let coordinates;
+                        if (canUseGPS) {
+                            // Get Coordinates 
+                            coordinates = await Geolocation.getCurrentPosition();
+                        }
+                        return coordinates
+                    }
+                    else {
+                        return 'Cannot access GPS check permissions'
+                    }
+                } else {
+                    // If user do not accept use of gps from the app
+                    return 'Cannot access GPS check permissions'
+                }
+            }
+        } catch (error) {
+            return 'Cannot access Location, check permissions'
+        }
+    },
+
+
+
     // Check if application having GPS access permission
     checkGPSPermission: async () => {
         return await new Promise((resolve, reject) => {
