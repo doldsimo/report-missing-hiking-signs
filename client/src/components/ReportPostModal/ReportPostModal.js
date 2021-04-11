@@ -1,20 +1,21 @@
 import React, { useContext, useState } from 'react';
-import { IonButton, IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonLoading, IonModal, IonRow, IonTextarea, IonThumbnail, IonTitle, IonToast, IonToolbar, useIonViewDidEnter } from '@ionic/react';
+import { IonButton,  IonContent, IonHeader, IonImg, IonItem, IonLabel, IonModal, IonTextarea, IonTitle,  IonToolbar } from '@ionic/react';
 import OwnLocationMap from './OwnLocationMap/OwnLocationMap';
 import * as api from '../../api/index';
 import { AlertContext } from '../../context/AlertContext';
+import { LocationsContext } from '../../context/LocationsContext';
 
 const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takePhoto }) => {
     const [description, setdescription] = useState("");
-    const [location, setLocation] = useState([48.051776, 8.206841]);
 
+    const { userLocation, setUserLocation } = useContext(LocationsContext)
     const { setAlertMessage, setIsLoading } = useContext(AlertContext);
 
 
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
-            const { data } = await api.createReportPosts({ description: description, img: photo.dataUrl, coordinates: location });
+            const { data } = await api.createReportPosts({ description: description, img: photo.dataUrl, coordinates: userLocation });
             console.log(data);
             setIsLoading(false);
         } catch (error) {
@@ -44,7 +45,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
                         <IonTextarea value={description} onIonChange={e => setdescription(e.detail.value)}></IonTextarea>
                     </IonItem>
                 </div>
-                <OwnLocationMap location={location} setLocation={setLocation} />
+                <OwnLocationMap userLocation={userLocation} setUserLocation={setUserLocation} />
                 <IonButton onClick={handleSubmit}>Send to DB</IonButton>
             </IonContent>
             <IonButton onClick={() => setIsReportModalOpen(false)}>Close Modal</IonButton>

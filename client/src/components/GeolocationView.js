@@ -4,7 +4,6 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import {
     IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonText, IonButton, IonItem, IonLabel, IonSpinner, useIonViewDidEnter, IonLoading, IonIcon
 } from '@ionic/react';
-import { informationCircleOutline } from 'ionicons/icons';
 import './styles.css';
 import CardLegend from './CardLegend/CardLegend';
 
@@ -14,6 +13,7 @@ const HomeView = (props) => {
     const [isLegendOpen, setIsLegendOpen] = useState(false)
 
     let position = [latitude, longitude];
+
 
     /* 
       * trigger a 'window-resize' event when Page has finished, 

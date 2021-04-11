@@ -37,7 +37,6 @@ const App = () => {
           <IonRouterOutlet>
             <Route exact path="/report" component={CameraTab} />
             <Route exact path="/geolocation" component={GeolocationTab} />
-            {/* <Route exact path="/report-post" component={ReportPost} /> */}
             <Route exact path="/"><Redirect to="/report" /></Route>
           </IonRouterOutlet>
 

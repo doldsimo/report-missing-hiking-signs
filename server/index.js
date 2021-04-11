@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 
-// Prefix for all post and user Routes
+// Prefix for all reportPosts Routes
 app.use('/reportPosts', reportPostRoutes);
 
 

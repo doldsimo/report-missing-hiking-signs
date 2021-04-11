@@ -8,7 +8,7 @@ import { AlertContext } from '../../../context/AlertContext';
 import LocationService from '../../../hooks/useGeolocationService';
 
 
-const OwnLocationMap = ({ location, setLocation }) => {
+const OwnLocationMap = ({ userLocation, setUserLocation }) => {
     const [map, setMap] = useState(null);
 
     const { setAlertMessage } = useContext(AlertContext);
@@ -21,20 +21,20 @@ const OwnLocationMap = ({ location, setLocation }) => {
         if (typeof coordinates === 'string') {
             setAlertMessage(coordinates)
         } else {
-            setLocation([coordinates.coords.latitude, coordinates.coords.longitude]);
+            setUserLocation([coordinates.coords.latitude, coordinates.coords.longitude]);
             map.flyTo([coordinates.coords.latitude, coordinates.coords.longitude]);
         }
     }
 
     return (
         <>
-            <MapContainer center={location} zoom={13} scrollWheelZoom={false} style={{ height: '50%', width: "100%" }} whenCreated={setMap}>
+            <MapContainer center={userLocation} zoom={13} scrollWheelZoom={false} style={{ height: '50%', width: "100%" }} whenCreated={setMap}>
                 <TileLayer
                     detectRetina={true}
                     attribution={'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' + ' Intern'}
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={location} color={"red"} >
+                <Marker position={userLocation} color={"red"} >
                     <Popup>You are here!</Popup>
                 </Marker>
                 {/* <LocationMarker /> */}

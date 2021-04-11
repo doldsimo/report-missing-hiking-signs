@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { AlertProvider } from './context/AlertContext';
+import { LocationProvider } from './context/LocationsContext';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <AlertProvider>
-      <App />
+      <LocationProvider>
+        <App />
+      </LocationProvider>
     </AlertProvider>
   </React.StrictMode>,
   document.getElementById('root')
