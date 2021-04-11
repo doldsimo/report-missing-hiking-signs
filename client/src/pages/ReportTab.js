@@ -9,7 +9,7 @@ import { isPlatform } from '@ionic/react';
 const CameraTab = () => {
   const { photo, takePhoto } = usePhotoGallery();
   const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
-  const [isReportModalOpen, setIsReportModalOpen] = useState(true);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   return (
     <IonPage>

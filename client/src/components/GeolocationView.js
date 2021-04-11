@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import GoogleMapReact from 'google-map-react'; löschen der Abhängigkeit
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import {
@@ -6,14 +6,28 @@ import {
 } from '@ionic/react';
 import './styles.css';
 import CardLegend from './CardLegend/CardLegend';
+import LocationService from '../hooks/useGeolocationService';
+import { AlertContext } from '../context/AlertContext';
+import { LocationsContext } from '../context/LocationsContext';
 
 
-const HomeView = (props) => {
-    const { latitude, longitude, getGeoLocation, loading } = props
+const HomeView = () => {
+    const [map, setMap] = useState(null);
     const [isLegendOpen, setIsLegendOpen] = useState(false)
+    const { userLocation, setUserLocation } = useContext(LocationsContext)
+    const { setAlertMessage } = useContext(AlertContext);
 
-    let position = [latitude, longitude];
+    const handleOnFlyTo = async () => {
+        let coordinates = await LocationService.getCurrentLocation();
 
+        // For Error Toast Messages
+        if (typeof coordinates === 'string') {
+            setAlertMessage(coordinates)
+        } else {
+            setUserLocation([coordinates.coords.latitude, coordinates.coords.longitude]);
+            map.flyTo([coordinates.coords.latitude, coordinates.coords.longitude]);
+        }
+    }
 
     /* 
       * trigger a 'window-resize' event when Page has finished, 
@@ -31,39 +45,31 @@ const HomeView = (props) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                {console.log(position)}
-                {console.log(loading)}
-                {loading ?
-                    <IonLoading
-                        isOpen={true}
-                        message={'Bitte Warten...'}
-                    />
-                    :
-                    <>
-                        <MapContainer center={position} zoom={13} style={{ height: "100%", width: "100%" }}>
-                            <TileLayer
-                                detectRetina={true}
-                                attribution={'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' + ' Intern'}
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                            <Marker position={position}>
-                                <Popup style={{ backgroundColor: "red" }}>
-                                    Current position
-                                </Popup>
-                            </Marker>
-                        </MapContainer>
+                {console.log(userLocation)}
+                <>
+                    <MapContainer center={userLocation} zoom={13} style={{ height: "100%", width: "100%" }} whenCreated={setMap}>
+                        <TileLayer
+                            detectRetina={true}
+                            attribution={'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' + ' Intern'}
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={userLocation}>
+                            <Popup>
+                                Current position
+                            </Popup>
+                        </Marker>
+                    </MapContainer>
 
+                    <IonItem className='geoAbs'>
+                        <IonLabel>
+                            <IonText>lat={userLocation[0]}</IonText>
+                            <IonText> lng={userLocation[1]}</IonText>
+                        </IonLabel>
+                    </IonItem>
+                    <IonButton onClick={handleOnFlyTo} className='geoFooter'>Get Current Location</IonButton>
+                    <CardLegend isLegendOpen={isLegendOpen} setIsLegendOpen={setIsLegendOpen} />
+                </>
 
-                        <IonItem className='geoAbs'>
-                            <IonLabel>
-                                <IonText>lat={latitude}</IonText>
-                                <IonText> lng={longitude}</IonText>
-                            </IonLabel>
-                        </IonItem>
-                        <IonButton onClick={getGeoLocation} className='geoFooter'>Get Current Location</IonButton>
-                        <CardLegend isLegendOpen={isLegendOpen} setIsLegendOpen={setIsLegendOpen} />
-                    </>
-                }
             </IonContent>
         </IonPage >
     )
