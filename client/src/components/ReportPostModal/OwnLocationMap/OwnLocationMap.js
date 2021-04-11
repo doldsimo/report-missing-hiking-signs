@@ -1,7 +1,5 @@
-import { IonButton, IonToast } from '@ionic/react';
-import { useFilesystem } from '@ionic/react-hooks/filesystem';
-import React, { useContext, useRef, useState } from 'react';
-// import { useIonViewDidEnter } from '@ionic/react';
+import { IonButton } from '@ionic/react';
+import React, { useContext, useState } from 'react';
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet';
 import { AlertContext } from '../../../context/AlertContext';
 
@@ -10,7 +8,6 @@ import LocationService from '../../../hooks/useGeolocationService';
 
 const OwnLocationMap = ({ userLocation, setUserLocation }) => {
     const [map, setMap] = useState(null);
-
     const { setAlertMessage } = useContext(AlertContext);
 
 
@@ -37,7 +34,6 @@ const OwnLocationMap = ({ userLocation, setUserLocation }) => {
                 <Marker position={userLocation} color={"red"} >
                     <Popup>You are here!</Popup>
                 </Marker>
-                {/* <LocationMarker /> */}
             </MapContainer>
             <IonButton onClick={handleOnFlyTo}>To your position</IonButton>
         </>

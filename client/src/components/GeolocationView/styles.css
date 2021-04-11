@@ -1,0 +1,41 @@
+.geoFooter {
+    position: absolute;
+    bottom: 0;
+    /* margin: auto; */
+    left: 0;
+    right: 0;
+    margin: 16px;
+    z-index: 999;
+}
+
+.geoAbs {
+    position: absolute;
+    bottom: 40px;
+    /* margin: auto; */
+    left: 0;
+    right: 0;
+    margin: 16px;
+    z-index: 999;
+}
+
+.card-Legend {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 16px;
+    z-index: 999;
+}
+
+.pointer {
+    border-top: 20px solid red;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    position: absolute;
+    bottom: -18px;
+}
+.full-content {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Capacitor, Plugins } from "@capacitor/core";
-import LocationService from '../hooks/useGeolocationService';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import React from 'react';
 
-import GeolocationView from '../components/GeolocationView';
-
-const { Geolocation, Toast } = Plugins;
+import GeolocationView from '../components/GeolocationView/GeolocationView';
 
 const GeolocationTab = () => {
 
-
-
   return (
-    <>
-      <GeolocationView />
-    </>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle slot="start">Map GeolocationTab</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <GeolocationView />
+      </IonContent>
+    </IonPage >
   );
 }
 

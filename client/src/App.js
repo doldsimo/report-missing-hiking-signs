@@ -1,11 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AlertContext } from './context/AlertContext';
+import { LocationsContext } from './context/LocationsContext';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonIcon, IonLabel, IonLoading, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonToast } from '@ionic/react';
 import { alertCircleOutline, mapOutline } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import CameraTab from './pages/ReportTab';
 import GeolocationTab from './pages/GeolocationTab';
+import * as api from './api/index';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -26,9 +28,25 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+
 const App = () => {
 
   const { alertMessage, setAlertMessage, isLoading, setIsLoading } = useContext(AlertContext);
+  const { setLocations } = useContext(LocationsContext);
+
+
+  useEffect(() => {
+    const fetchReportPosts = async () => {
+      try {
+        const { data } = await api.fetchReportPosts();
+        console.log(data);
+        setLocations(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchReportPosts();
+  }, [])
 
   return (
     <IonApp>

@@ -4,8 +4,10 @@ import ReportPost from '../models/reportPosts.js';
 
 export const getReportPosts = async (req, res) => {
     try {
+        const reportPosts = await ReportPost.find();
 
-        res.status(200).json({ testMessage: 'getReportPosts Response' });
+        res.status(200).json(reportPosts);
+
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
