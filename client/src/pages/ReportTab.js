@@ -1,6 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet, IonTextarea, IonText, IonButton } from '@ionic/react';
 import { camera, imagesOutline } from 'ionicons/icons';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AlertContext } from '../context/AlertContext';
 import ReportPostModal from '../components/ReportPostModal/ReportPostModal';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import { isPlatform } from '@ionic/react';
@@ -9,6 +10,7 @@ const CameraTab = () => {
   const { photo, takePhoto } = usePhotoGallery();
   const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(true);
+
   return (
     <IonPage>
       <IonHeader>

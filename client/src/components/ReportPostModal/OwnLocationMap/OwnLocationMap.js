@@ -1,15 +1,17 @@
 import { IonButton, IonToast } from '@ionic/react';
 import { useFilesystem } from '@ionic/react-hooks/filesystem';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 // import { useIonViewDidEnter } from '@ionic/react';
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet';
+import { AlertContext } from '../../../context/AlertContext';
 
 import LocationService from '../../../hooks/useGeolocationService';
 
 
-const OwnLocationMap = ({location, setLocation}) => {
+const OwnLocationMap = ({ location, setLocation }) => {
     const [map, setMap] = useState(null);
-    const [toastMessage, setToastMessage] = useState("");
+
+    const { setAlertMessage } = useContext(AlertContext);
 
 
     const handleOnFlyTo = async () => {
@@ -17,7 +19,7 @@ const OwnLocationMap = ({location, setLocation}) => {
 
         // For Error Toast Messages
         if (typeof coordinates === 'string') {
-            setToastMessage(coordinates)
+            setAlertMessage(coordinates)
         } else {
             setLocation([coordinates.coords.latitude, coordinates.coords.longitude]);
             map.flyTo([coordinates.coords.latitude, coordinates.coords.longitude]);
@@ -38,13 +40,6 @@ const OwnLocationMap = ({location, setLocation}) => {
                 {/* <LocationMarker /> */}
             </MapContainer>
             <IonButton onClick={handleOnFlyTo}>To your position</IonButton>
-            <IonToast
-                isOpen={toastMessage != ""}
-                duration={1000}
-                onDidDismiss={() => setToastMessage("")}
-                message={toastMessage}
-                position="bottom"
-            />
         </>
     )
 }

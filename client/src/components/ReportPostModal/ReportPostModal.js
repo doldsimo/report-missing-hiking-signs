@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { IonButton, IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonLoading, IonModal, IonRow, IonTextarea, IonThumbnail, IonTitle, IonToast, IonToolbar, useIonViewDidEnter } from '@ionic/react';
 import OwnLocationMap from './OwnLocationMap/OwnLocationMap';
 import * as api from '../../api/index';
+import { AlertContext } from '../../context/AlertContext';
 
 const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takePhoto }) => {
     const [description, setdescription] = useState("");
     const [location, setLocation] = useState([48.051776, 8.206841]);
-    const [isloading, setIsLoading] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
+
+    const { setAlertMessage, setIsLoading } = useContext(AlertContext);
+
 
     const handleSubmit = async () => {
         setIsLoading(true);
@@ -15,10 +17,9 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
             const { data } = await api.createReportPosts({ description: description, img: photo.dataUrl, coordinates: location });
             console.log(data);
             setIsLoading(false);
-            // setIsReportModalOpen(false);
         } catch (error) {
             console.log(error);
-            setToastMessage("Etwas ist schief gelaufen");
+            setAlertMessage("Etwas ist schief gelaufen");
             setIsLoading(false);
         }
     }
@@ -39,28 +40,12 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
                     </div>
                     <IonButton onClick={() => takePhoto(setIsReportModalOpen)}>Neues Photo</IonButton>
                     <IonItem>
-                        <IonLabel position="floating">Beschreibungs description</IonLabel>
+                        <IonLabel position="floating">Beschreibungstext</IonLabel>
                         <IonTextarea value={description} onIonChange={e => setdescription(e.detail.value)}></IonTextarea>
                     </IonItem>
-
-                    <div style={{ maxWidth: "500px", margin: "auto" }}>
-                        <p>Wähle deinen Standort</p>
-                    </div>
                 </div>
                 <OwnLocationMap location={location} setLocation={setLocation} />
                 <IonButton onClick={handleSubmit}>Send to DB</IonButton>
-                <IonLoading
-                    isOpen={isloading}
-                    onDidDismiss={() => setIsLoading(false)}
-                    message={'Bitte warten...'}
-                />
-                <IonToast
-                    isOpen={toastMessage != ""}
-                    duration={1000}
-                    onDidDismiss={() => setToastMessage("")}
-                    message={toastMessage}
-                    position="bottom"
-                />
             </IonContent>
             <IonButton onClick={() => setIsReportModalOpen(false)}>Close Modal</IonButton>
         </IonModal >

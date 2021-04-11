@@ -1,5 +1,7 @@
+import { useContext } from 'react';
+import { AlertContext } from './context/AlertContext';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
+import { IonApp, IonIcon, IonLabel, IonLoading, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonToast } from '@ionic/react';
 import { alertCircleOutline, mapOutline } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import CameraTab from './pages/ReportTab';
@@ -24,30 +26,47 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/report" component={CameraTab} />
-          <Route exact path="/geolocation" component={GeolocationTab} />
-          {/* <Route exact path="/report-post" component={ReportPost} /> */}
-          <Route exact path="/"><Redirect to="/report" /></Route>
-        </IonRouterOutlet>
+const App = () => {
 
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="report" href="/report">
-            <IonIcon icon={alertCircleOutline} />
-            <IonLabel>Melden</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="geolocation" href="/geolocation">
-            <IonIcon icon={mapOutline} />
-            <IonLabel>Karte</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+  const { alertMessage, setAlertMessage, isLoading, setIsLoading } = useContext(AlertContext);
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/report" component={CameraTab} />
+            <Route exact path="/geolocation" component={GeolocationTab} />
+            {/* <Route exact path="/report-post" component={ReportPost} /> */}
+            <Route exact path="/"><Redirect to="/report" /></Route>
+          </IonRouterOutlet>
+
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="report" href="/report">
+              <IonIcon icon={alertCircleOutline} />
+              <IonLabel>Melden</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="geolocation" href="/geolocation">
+              <IonIcon icon={mapOutline} />
+              <IonLabel>Karte</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+        <IonLoading
+          isOpen={isLoading}
+          message={'Bitte Warten...'}
+          onDidDismiss={() => setIsLoading(false)}
+        />
+        <IonToast
+          isOpen={alertMessage != ""}
+          duration={1500}
+          onDidDismiss={() => setAlertMessage("")}
+          message={alertMessage}
+          position="bottom"
+        />
+      </IonReactRouter>
+    </IonApp>
+  )
+};
 
 export default App;
