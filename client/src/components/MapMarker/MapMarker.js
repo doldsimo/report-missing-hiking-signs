@@ -1,4 +1,3 @@
-import React from 'react';
 import L from "leaflet";
 import redMarker from '../../assets/mapMarker/marker-icon-red.png';
 import blueMarker from '../../assets/mapMarker/marker-icon-blue.png';

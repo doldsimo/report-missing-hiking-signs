@@ -14,7 +14,7 @@ const LocationService = {
             const hasPermission = await LocationService.checkGPSPermission();
             if (hasPermission) {
                 // hybrid = capacitor (android or ios)
-                if (isPlatform("hybrid")) {
+                if (Capacitor.isNative) {
                     const canUseGPS = await LocationService.askToTurnOnGPS();
                     let coordinates;
                     if (canUseGPS) {
