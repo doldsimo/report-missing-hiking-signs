@@ -9,6 +9,8 @@ Repository für das Seminar **Aktuelle Entwicklungen im Bereich Online Medien**
 - [Projektidee](#projektidee)
 - [Technologien](#technologien)
 - [Installation](#installation)
+- [Deployen](#deployen)
+- [Debuggen](#debuggen)
 - [Aufbau des Projektes](#aufbau)
 
 ---
@@ -55,7 +57,7 @@ Als Backed verwende ich [Node.js](https://nodejs.org/en/) in Kombination mit [Ex
 
 ## Installation
 
-Die Installation von Ionic einer App findet so gut wie ausschließlich über die Commando Zeile statt.
+Die Installation einer Ionic App findet so gut wie ausschließlich über die Commando Zeile statt.
 
 > **Vorausetzung:** Node.js muss installiert sein, damit der Node Package Manager (npm) genutzt werden kann.
 
@@ -69,7 +71,7 @@ Neues Projekt erstellen:
 
     ionic start
 
-Dialog folgen und Frontend Framework auswählen:
+Frontend Framework auswählen:
 
 ![Pick a framework](./zdocumentation/img/installation/new-project.PNG 'Pick a framework')
 
@@ -88,7 +90,97 @@ Lokaler Ionic deleopment Server starten:
 
     ionic serve
 
+---
+
+## Deployen
+
+Da man mithilfe von Ionic Progressive Web Apps entickelt, kann man die gleiche App für unterschiedliche Plattformen deployen. Somit kann die App zum Beispiel als Web App, Android, oder IOS App deployed werden.
+
+### Als Web App
+
+Zum deployen der Ionic App als Web-App muss in der Konsole nur folgender Befehl eingegeben werden:
+
+    ionic build
+
+Dies erstellt mithilfe von Webpack ein optimierten **build**-Ordner in dem aller Code minifiziert und gebündelt wurde. Somit ist dieser Ordner nun dafür geeignet Online zu depolyen.
+
+### Android App
+
+> **Vorausetzung:** Android Studio muss installiert und konfiguriert sein
+
+Erstellen eines optimierten build-Ordners:
+
+    ionic build
+
+Erstellen des Andorid-Ordners, welcher das eigenständige "native" Android Projekt darstellt:
+
+    ionic cap add android
+
+>*Es wird in der App ein Lokaler Server gestartet (Wrapper), welcher den erstellten, Webcode liest und darstellt. Über eine API werden dann aus diesem Wrapper native Schnittstellen angesprochen.*
+
+Bei jeder änderung des Web-Codes muss ausgeführt werden:
+
+    ionic cap copy
+
+Bei Änderungen von nativem Code, oder beim hinzufügen neuer Plugins:
+
+    ionic cap sync 
+
+ausgeführt werden. Dies kopiert die Änderungen in das native Android Projekt
+
+[Ionic Dokumentation zum Deployen von Android und IOS Apps](https://ionicframework.com/docs/angular/your-first-app/6-deploying-mobile)
+
+---
+
+## Debuggen
+
+Viele nicht native Features kann man direkt im Browser debuggen, und somit die Entwicklungswerkzeuge von dem jeweiligen Browser benutzen.
+
+Will man jedoch die nativen Features debuggen, ist das etwas aufwendiger.
+
+[Dokumentation zu remote debugging](https://ionicframework.com/docs/cli/commands/capacitor-run)
+
+> **Vorausetzung:** Android Studio muss installiert und konfiguriert sein
+
+    ionic capacitor run android
+
+Mit livereload:
+
+    ionic capacitor run android --livereload --external
+
+In Android Studio kann ausgewählt werden auf welchem Gerät die App gestartet werden soll.
+
+Außerdem kann mithilfe von Android Studio auch der native Capacitor Code debuggt werden. Die Plugins befinden sich z.B. in:
+
+> capacitor-android > java > com.getcapacitor > plugins  
+
+### Debuggen auf externem Smartphone
+
+1. Aktivieren der Entwickleroptionen auf dem externen Gerät.
+2. In Entwickleroptionen USB-Debugging aktivieren und Smartphone mit Computer verbinden.
+3. Projekt normal starten:
+
+        ionic capacitor run android --livereload --external
+
+    In Android Studio das extern verbunden Gerät auswählen und App starten.
+
+### Chrome Remote Debugging
+
+> **Vorausetzung:** Der Browser Google Chrome muss installiert und verwendet werden
+
+Egal ob man auf einem externen Smartphone oder einem Android Emulator die App gestartet hat, kann man mit hilfe der Chrome Remote Debugging-Tools den lokal gestarteten Server auf dem Gerät debuggen.
+
+    chrome://inspect/#devices
+
+Danach sollte das Gerät in diesem Tab aufgelistet werden. Beim klick auf *inspect* öffnen sich die Goolge Chrome Entwicklertools und das externe Gerät kann debuggt werden.
+
+![remote debugging](./zdocumentation/img/remoteDebugging/remotedDebugging.PNG 'remote debugging')
+
+---
+
 ## Aufbau
+
+Das Projekt ist in zwei Teile unterteilt:
 
 client -> Fontend
 
