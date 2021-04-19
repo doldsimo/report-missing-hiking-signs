@@ -10,12 +10,15 @@ import LocationService from '../../hooks/useGeolocationService';
 import { AlertContext } from '../../context/AlertContext';
 import { LocationsContext } from '../../context/LocationsContext';
 import './styles.css';
+import OtherLocationsModal from './OtherLocationsModal/OtherLocationsModal';
 
 
 const GeolocationView = () => {
     const [map, setMap] = useState(null);
-    const [isLegendOpen, setIsLegendOpen] = useState(false)
-    const { userLocation, setUserLocation, locations } = useContext(LocationsContext)
+    const [isLegendOpen, setIsLegendOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [otherUserLocation, setOtherUserLocation] = useState();
+    const { userLocation, setUserLocation, locations } = useContext(LocationsContext);
     const { setAlertMessage } = useContext(AlertContext);
 
     const handleOnFlyTo = async () => {
@@ -58,6 +61,14 @@ const GeolocationView = () => {
                         <Marker key={i} position={location.coordinates} icon={BlueMarker()} >
                             <Popup>
                                 From other users
+                            <div onClick={() => {
+                                    setIsModalOpen(true);
+                                    setOtherUserLocation(location);
+                                }}
+                                    style={{ color: "#0044CC", cursor: "pointer" }}
+                                >
+                                    mehr...
+                            </div>
                             </Popup>
                         </Marker>
                     );
@@ -72,6 +83,7 @@ const GeolocationView = () => {
             </IonItem>
             <IonButton onClick={handleOnFlyTo} className='geoFooter'>Get Current Location</IonButton>
             <CardLegend isLegendOpen={isLegendOpen} setIsLegendOpen={setIsLegendOpen} />
+            { otherUserLocation != undefined && <OtherLocationsModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} otherUserLocation={otherUserLocation} setOtherUserLocation={setOtherUserLocation} />}
         </>
     )
 }
