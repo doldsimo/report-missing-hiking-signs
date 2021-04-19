@@ -79,7 +79,7 @@ Name des Projektes eingeben:
 
 ![project name](./zdocumentation/img/installation/new-project_1.PNG 'project name')
 
-Wähle ein Starter-Template: 
+Wähle ein Starter-Template:
 ![starter template](./zdocumentation/img/installation/new-project_2.PNG 'starter template')
 
 In den Ordner des neu erstellten Projektes navigieren:
