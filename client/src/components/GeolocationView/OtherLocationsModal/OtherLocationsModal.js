@@ -13,12 +13,12 @@ const OtherLocationsModal = ({ isModalOpen, setIsModalOpen, otherUserLocation, s
             </IonHeader> */}
             <IonContent>
                 <div className="ion-padding">
-                    <IonText>
-
-                    </IonText>
                     <div style={{ maxWidth: "500px", margin: "auto" }} className="ion-padding">
                         <IonImg style={{ width: "100%", heigh: "auto" }} src={otherUserLocation.img} />
                     </div>
+                    <IonText>
+                        {otherUserLocation.createdAt}
+                    </IonText>
                     <IonText>
                         <p>
                             Beschreibung:

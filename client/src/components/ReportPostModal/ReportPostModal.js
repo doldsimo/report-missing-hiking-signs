@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { IonButton,  IonContent, IonHeader, IonImg, IonItem, IonLabel, IonModal, IonTextarea, IonTitle,  IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonImg, IonItem, IonLabel, IonModal, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 import OwnLocationMap from './OwnLocationMap/OwnLocationMap';
 import * as api from '../../api/index';
 import { AlertContext } from '../../context/AlertContext';
@@ -10,6 +10,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
 
     const { userLocation, setUserLocation } = useContext(LocationsContext)
     const { setAlertMessage, setIsLoading } = useContext(AlertContext);
+    const { locations, setLocations } = useContext(LocationsContext);
 
 
     const handleSubmit = async () => {
@@ -17,6 +18,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
         try {
             const { data } = await api.createReportPosts({ description: description, img: photo.dataUrl, coordinates: userLocation });
             console.log(data);
+            setLocations([...locations, data]);
             setIsLoading(false);
         } catch (error) {
             console.log(error);

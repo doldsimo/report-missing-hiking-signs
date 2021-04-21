@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonButton, IonFab, IonFabButton, IonIcon, IonFabList, IonImg, IonText, } from '@ionic/react';
+import { IonFab, IonFabButton, IonIcon, IonFabList, IonImg, IonText } from '@ionic/react';
 import { informationCircleOutline } from 'ionicons/icons';
 import redMarker from '../../assets/mapMarker/marker-icon-red.png';
 import blueMarker from '../../assets/mapMarker/marker-icon-blue.png';
