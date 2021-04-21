@@ -43,7 +43,6 @@ const GeolocationView = () => {
     });
     return (
         <>
-            {/* {console.log(userLocation)} */}
             <MapContainer center={userLocation} zoom={13} style={{ height: "100%", width: "100%" }} whenCreated={setMap}>
                 <TileLayer
                     detectRetina={true}
