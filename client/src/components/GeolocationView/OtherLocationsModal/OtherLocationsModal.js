@@ -30,7 +30,7 @@ const OtherLocationsModal = ({ isModalOpen, setIsModalOpen, otherUserLocation, s
                 </div>
             </IonContent>
             <IonButton onClick={() => setIsModalOpen(false)}>Schließen</IonButton>
-        </IonModal >
+        </IonModal>
     )
 }
 

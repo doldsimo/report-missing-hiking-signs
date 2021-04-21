@@ -50,7 +50,8 @@ const GeolocationView = () => {
                     attribution={'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' + ' Intern'}
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={userLocation} icon={RedMarker()}>
+
+                <Marker position={userLocation}>
                     <Popup>
                         Current position
                     </Popup>
@@ -61,18 +62,19 @@ const GeolocationView = () => {
                         <Marker key={i} position={location.coordinates} icon={BlueMarker()} >
                             <Popup>
                                 From other users
-                            <div onClick={() => {
+                                <div onClick={() => {
                                     setIsModalOpen(true);
                                     setOtherUserLocation(location);
                                 }}
                                     style={{ color: "#0044CC", cursor: "pointer" }}
                                 >
                                     mehr...
-                            </div>
+                                </div>
                             </Popup>
                         </Marker>
                     );
                 })}
+
             </MapContainer>
 
             <IonItem className='geoAbs'>
