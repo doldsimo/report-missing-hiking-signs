@@ -9,8 +9,8 @@ import CardLegend from '../CardLegend/CardLegend';
 import LocationService from '../../hooks/useGeolocationService';
 import { AlertContext } from '../../context/AlertContext';
 import { LocationsContext } from '../../context/LocationsContext';
-import './styles.css';
 import OtherLocationsModal from './OtherLocationsModal/OtherLocationsModal';
+import './styles.css';
 
 
 const GeolocationView = () => {
@@ -51,12 +51,6 @@ const GeolocationView = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <Marker position={userLocation}>
-                    <Popup>
-                        Current position
-                    </Popup>
-                </Marker>
-
                 {locations.map((location, i) => {
                     return (
                         <Marker key={i} position={location.coordinates} icon={BlueMarker()} >
@@ -74,6 +68,12 @@ const GeolocationView = () => {
                         </Marker>
                     );
                 })}
+
+                <Marker position={userLocation} icon={RedMarker()} zIndexOffset={100} >
+                    <Popup>
+                        Current position
+                    </Popup>
+                </Marker>
 
             </MapContainer>
 
