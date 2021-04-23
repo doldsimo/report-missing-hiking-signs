@@ -42,17 +42,17 @@ const OwnLocationMap = ({ userLocation, setUserLocation }) => {
 
     return (
         <>
-            <MapContainer center={userLocation} zoom={13} scrollWheelZoom={false} style={{ height: '50%', width: "100%" }} whenCreated={setMap}>
+            <MapContainer center={userLocation} zoom={13} scrollWheelZoom={false} style={{ height: '50%', width: "auto", }} whenCreated={setMap}>
                 <TileLayer
                     detectRetina={true}
                     attribution={'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' + ' Intern'}
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker ref={markerRef} position={userLocation} icon={RedMarker()} draggable={true} eventHandlers={eventHandlers}  >
-                    <Popup>You are here!</Popup>
+                    <Popup>Dein Standort</Popup>
                 </Marker>
             </MapContainer>
-            <IonButton onClick={handleOnFlyTo}>To your position</IonButton>
+            <IonButton onClick={handleOnFlyTo}>Zu deiner Position</IonButton>
         </>
     )
 }

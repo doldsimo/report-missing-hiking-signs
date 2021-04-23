@@ -20,6 +20,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
             console.log(data);
             setLocations([...locations, data]);
             setIsLoading(false);
+            setIsReportModalOpen(false);
         } catch (error) {
             console.log(error);
             setAlertMessage("Etwas ist schief gelaufen");
@@ -37,20 +38,19 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
             </IonHeader>
             <IonContent>
                 <div className="ion-padding">
-                    <p>Melde ein fehlendes Wanderbild</p>
                     <div style={{ maxWidth: "500px", margin: "auto" }}>
                         <IonImg style={{ width: "100%", heigh: "auto" }} src={photo.dataUrl} />
                     </div>
-                    <IonButton onClick={() => takePhoto(setIsReportModalOpen)}>Neues Photo</IonButton>
+                    <IonButton onClick={() => takePhoto(setIsReportModalOpen)}>Neues Bild</IonButton>
                     <IonItem>
                         <IonLabel position="floating">Beschreibungstext</IonLabel>
                         <IonTextarea value={description} onIonChange={e => setdescription(e.detail.value)}></IonTextarea>
                     </IonItem>
                 </div>
                 <OwnLocationMap userLocation={userLocation} setUserLocation={setUserLocation} />
-                <IonButton onClick={handleSubmit}>Send to DB</IonButton>
+                <IonButton onClick={handleSubmit}>Abschicken</IonButton>
             </IonContent>
-            <IonButton onClick={() => setIsReportModalOpen(false)}>Close Modal</IonButton>
+            <IonButton onClick={() => setIsReportModalOpen(false)}>Abbrechen</IonButton>
         </IonModal >
     )
 }
