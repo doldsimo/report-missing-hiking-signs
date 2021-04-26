@@ -9,7 +9,7 @@ Repository für das Seminar **Aktuelle Entwicklungen im Bereich Online Medien**
 - [Projektidee](#projektidee)
 - [Technologien](#technologien)
 - [Installation](#installation)
-- [Deployen](#deployen)
+- [Deployment](#deployment)
 - [Debuggen](#debuggen)
 - [Aufbau des Projektes](#aufbau)
 
@@ -17,7 +17,7 @@ Repository für das Seminar **Aktuelle Entwicklungen im Bereich Online Medien**
 
 ## Projektidee
 
-Entwicklung einer App, bei welcher man fehlende, unklare oder beschädigte Beschilderungen von Wanderwegen melden kann. Dies soll mit Hilfe eines Bildes, kleinen Textes und den genauen GPS-Daten an einen z.B. einen Wanderverein im Schwarzwald gemeldet werden können.
+Entwicklung einer App, bei der man fehlende, unklare oder beschädigte Beschilderungen von Wanderwegen melden kann. Dies soll mit Hilfe eines Bildes, kleinen Textes und den genauen GPS-Daten an z.B. einen Wanderverein im Schwarzwald gemeldet werden können.
 
 ### Anwendungszenario
 
@@ -86,47 +86,47 @@ In den Ordner des neu erstellten Projektes navigieren:
 
     cd ./testProject
 
-Lokaler Ionic deleopment Server starten:
+Lokaler Ionic development Server starten:
 
     ionic serve
 
 ---
 
-## Deployen
+## Deployment
 
-Da man mithilfe von Ionic Progressive Web Apps entickelt, kann man die gleiche App für unterschiedliche Plattformen deployen. Somit kann die App zum Beispiel als Web App, Android, oder IOS App deployed werden.
+Da man mithilfe von Ionic Progressive Web Apps entwickelt, kann man die gleiche App für unterschiedliche Plattformen deployen. Somit kann die App zum Beispiel als Web App, Android, oder IOS App deployed werden.
 
 ### Als Web App
 
-Zum deployen der Ionic App als Web-App muss in der Konsole nur folgender Befehl eingegeben werden:
+Zum Deployen der Ionic App als Web-App muss in der Konsole folgender Befehl eingegeben werden:
 
     ionic build
 
-Dies erstellt mithilfe von Webpack ein optimierten **build**-Ordner in dem aller Code minifiziert und gebündelt wurde. Somit ist dieser Ordner nun dafür geeignet Online zu depolyen.
+Dies erstellt mithilfe von Webpack einen optimierten **build**-Ordner in dem der Code minifiziert und gebündelt vorliegt. Somit ist dieser Ordner nun dafür geeignet Online zu veröffentlichen.
 
 ### Android App
 
-> **Vorausetzung:** Android Studio muss installiert und konfiguriert sein
+> **Voraussetzung:** Android Studio muss installiert und konfiguriert sein
 
 Erstellen eines optimierten build-Ordners:
 
     ionic build
 
-Erstellen des Andorid-Ordners, welcher das eigenständige "native" Android Projekt darstellt:
+Erstellen eines Android-Ordners, der ein eigenständiges "natives" Android Projekt darstellt:
 
     ionic cap add android
 
 >*Es wird in der App ein Lokaler Server gestartet (Wrapper), welcher den erstellten, Webcode liest und darstellt. Über eine API werden dann aus diesem Wrapper native Schnittstellen angesprochen.*
 
-Bei jeder änderung des Web-Codes muss ausgeführt werden:
+Bei jeder Änderung des Web-Codes muss folgender Befehl ausgeführt werden:
 
     ionic cap copy
 
-Bei Änderungen von nativem Code, oder beim hinzufügen neuer Plugins:
+Bei Änderungen von nativem Code, oder beim Hinzufügen neuer Plugins muss folgender Befehl ausgeführt werden:
 
     ionic cap sync 
 
-ausgeführt werden. Dies kopiert die Änderungen in das native Android Projekt
+Dies kopiert die Änderungen in das native Android Projekt
 
 [Ionic Dokumentation zum Deployen von Android und IOS Apps](https://ionicframework.com/docs/angular/your-first-app/6-deploying-mobile)
 
@@ -140,7 +140,7 @@ Will man jedoch die nativen Features debuggen, ist das etwas aufwendiger.
 
 [Dokumentation zu remote debugging](https://ionicframework.com/docs/cli/commands/capacitor-run)
 
-> **Vorausetzung:** Android Studio muss installiert und konfiguriert sein
+> **Voraussetzung:** Android Studio muss installiert und konfiguriert sein
 
     ionic capacitor run android
 
@@ -162,11 +162,11 @@ Außerdem kann mithilfe von Android Studio auch der native Capacitor Code debugg
 
         ionic capacitor run android --livereload --external
 
-    In Android Studio das extern verbunden Gerät auswählen und App starten.
+    In Android Studio das extern verbundene Gerät auswählen und die App starten.
 
 ### Chrome Remote Debugging
 
-> **Vorausetzung:** Der Browser Google Chrome muss installiert und verwendet werden
+> **Voraussetzung:** Der Browser Google Chrome muss installiert und verwendet werden
 
 Egal ob man auf einem externen Smartphone oder einem Android Emulator die App gestartet hat, kann man mit hilfe der Chrome Remote Debugging-Tools den lokal gestarteten Server auf dem Gerät debuggen.
 
