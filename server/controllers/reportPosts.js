@@ -2,11 +2,29 @@ import mongoose from 'mongoose';
 import ReportPost from '../models/reportPosts.js';
 
 
-export const getReportPosts = async (req, res) => {
+export const getReportPostsCoordinates = async (req, res) => {
     try {
-        const reportPosts = await ReportPost.find();
+        const reportPostsCoordinates = await ReportPost.find({}, { id: 0, img: 0, description: 0, createdAt: 0 });
 
-        res.status(200).json(reportPosts);
+        res.status(200).json(reportPostsCoordinates);
+
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const getReportPost = async (req, res) => {
+
+    const postId = req.query.id;
+    try {
+        // Get Post
+        const reportPost = await ReportPost.findById(postId);
+
+        // console.log(reportPost);
+
+        // console.log("reportPost: " + reportPost);
+
+        res.status(200).json(reportPost);
 
     } catch (error) {
         res.status(404).json({ message: error.message });

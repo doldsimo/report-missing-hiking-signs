@@ -36,16 +36,16 @@ const App = () => {
 
 
   useEffect(() => {
-    const fetchReportPosts = async () => {
+    const fetchReportPostsCoordinates = async () => {
       try {
-        const { data } = await api.fetchReportPosts();
+        const { data } = await api.fetchReportPostsCoordinates();
         console.log(data);
         setLocations(data);
       } catch (error) {
         console.log(error);
       }
     }
-    fetchReportPosts();
+    fetchReportPostsCoordinates();
   }, [])
 
   return (

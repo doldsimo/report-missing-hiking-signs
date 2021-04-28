@@ -5,7 +5,7 @@ import { RedMarker, BlueMarker } from '../MapMarker/MapMarker';
 
 
 import { IonText, IonButton, IonItem, IonLabel, useIonViewDidEnter } from '@ionic/react';
-import CardLegend from '../CardLegend/CardLegend';
+import CardLegend from './CardLegend/CardLegend';
 import LocationService from '../../hooks/useGeolocationService';
 import { AlertContext } from '../../context/AlertContext';
 import { LocationsContext } from '../../context/LocationsContext';
@@ -17,7 +17,7 @@ const GeolocationView = () => {
     const [map, setMap] = useState(null);
     const [isLegendOpen, setIsLegendOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [otherUserLocation, setOtherUserLocation] = useState();
+    const [locationId, setLocationId] = useState();
     const { userLocation, setUserLocation, locations } = useContext(LocationsContext);
     const { setAlertMessage } = useContext(AlertContext);
 
@@ -57,7 +57,7 @@ const GeolocationView = () => {
                                 From other users
                                 <div onClick={() => {
                                     setIsModalOpen(true);
-                                    setOtherUserLocation(location);
+                                    setLocationId(location._id);
                                 }}
                                     style={{ color: "#0044CC", cursor: "pointer" }}
                                 >
@@ -73,7 +73,6 @@ const GeolocationView = () => {
                         Current position
                     </Popup>
                 </Marker>
-
             </MapContainer>
 
             <IonItem className='geoAbs'>
@@ -84,7 +83,7 @@ const GeolocationView = () => {
             </IonItem>
             <IonButton onClick={handleOnFlyTo} className='geoFooter'>Get Current Location</IonButton>
             <CardLegend isLegendOpen={isLegendOpen} setIsLegendOpen={setIsLegendOpen} />
-            { otherUserLocation != undefined && <OtherLocationsModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} otherUserLocation={otherUserLocation} setOtherUserLocation={setOtherUserLocation} />}
+            { locationId != undefined && <OtherLocationsModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} locationId={locationId} setLocationId={setLocationId} />}
         </>
     )
 }
