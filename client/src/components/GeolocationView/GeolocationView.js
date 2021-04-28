@@ -54,7 +54,7 @@ const GeolocationView = () => {
                     return (
                         <Marker key={i} position={location.coordinates} icon={BlueMarker()} >
                             <Popup>
-                                From other users
+                                Gemeldete Position
                                 <div onClick={() => {
                                     setIsModalOpen(true);
                                     setLocationId(location._id);
@@ -70,7 +70,7 @@ const GeolocationView = () => {
 
                 <Marker position={userLocation} icon={RedMarker()} zIndexOffset={100} >
                     <Popup>
-                        Current position
+                        Dein Standort
                     </Popup>
                 </Marker>
             </MapContainer>

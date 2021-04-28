@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { IonButton, IonContent, IonImg, IonModal, IonSkeletonText, IonText, IonThumbnail } from '@ionic/react';
+import { AlertContext } from '../../../context/AlertContext';
 import * as api from '../../../api/index';
 import moment from 'moment';
 import 'moment/locale/de';
 
 const OtherLocationsModal = ({ isModalOpen, setIsModalOpen, locationId, setLocationId }) => {
-    const [location, setLocation] = useState(null)
+    const [location, setLocation] = useState(null);
+    const { setAlertMessage } = useContext(AlertContext);
     moment.locale("de");
 
     useEffect(() => {
@@ -17,6 +19,7 @@ const OtherLocationsModal = ({ isModalOpen, setIsModalOpen, locationId, setLocat
                 setLocation(data);
             } catch (error) {
                 console.log(error);
+                setAlertMessage("Etwas ist schief gelaufen.");
             }
         }
         fetchReportPost();

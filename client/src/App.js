@@ -43,6 +43,7 @@ const App = () => {
         setLocations(data);
       } catch (error) {
         console.log(error);
+        setAlertMessage("Überprüfe deine Internetverbindung.");
       }
     }
     fetchReportPostsCoordinates();
