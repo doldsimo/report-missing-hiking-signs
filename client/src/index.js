@@ -4,6 +4,7 @@ import App from './App';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { AlertProvider } from './context/AlertContext';
 import { LocationProvider } from './context/LocationsContext';
+import "./index.css";
 
 
 ReactDOM.render(

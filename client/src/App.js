@@ -43,7 +43,7 @@ const App = () => {
         setLocations(data);
       } catch (error) {
         console.log(error);
-        setAlertMessage("Überprüfe deine Internetverbindung.");
+        setAlertMessage("Daten konnten nicht geladen werden.");
       }
     }
     fetchReportPostsCoordinates();
@@ -80,7 +80,7 @@ const App = () => {
           duration={1500}
           onDidDismiss={() => setAlertMessage("")}
           message={alertMessage}
-          position="bottom"
+          position="top"
         />
       </IonReactRouter>
     </IonApp>

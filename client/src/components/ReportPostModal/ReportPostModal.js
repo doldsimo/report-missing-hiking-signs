@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { IonButton, IonContent, IonHeader, IonImg, IonItem, IonLabel, IonModal, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonImg, IonItem, IonLabel, IonModal, IonTextarea, IonTitle, IonToolbar, isPlatform } from '@ionic/react';
 import OwnLocationMap from './OwnLocationMap/OwnLocationMap';
 import * as api from '../../api/index';
 import { AlertContext } from '../../context/AlertContext';
@@ -39,7 +39,8 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
             <IonContent>
                 <div className="ion-padding">
                     <div style={{ maxWidth: "500px", margin: "auto" }}>
-                        <IonImg style={{ width: "100%", heigh: "auto" }} src={photo.dataUrl} />
+                        <IonImg style={{ width: "100%", heigh: "auto" }} src={isPlatform("hybrid") ? photo : photo.dataUrl} />
+                        {/* <IonImg style={{ width: "100%", heigh: "auto" }} src={photo.dataUrl} /> */}
                     </div>
                     <IonButton onClick={() => takePhoto(setIsReportModalOpen)}>Neues Bild</IonButton>
                     <IonItem>

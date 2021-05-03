@@ -1,0 +1,1 @@
+import { AndroidPermissions } from '@ionic-native/android-permissions';
