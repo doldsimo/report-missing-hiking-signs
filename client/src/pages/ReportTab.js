@@ -9,7 +9,7 @@ import ReportDesktop from '../components/ReportDesktop/ReportDesktop';
 
 
 const CameraTab = () => {
-  const { photo, takePhoto, startCameraPreview, stopCameraPreview, flipCameraPreview, takeImageCameraPreview } = usePhotoGallery();
+  const { photo, setPhotos, takePhoto, startCameraPreview, stopCameraPreview, flipCameraPreview, takeImageCameraPreview} = usePhotoGallery();
   const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
@@ -101,7 +101,7 @@ const CameraTab = () => {
           </>
         }
 
-        <ReportPostModal isReportModalOpen={isReportModalOpen} setIsReportModalOpen={setIsReportModalOpen} photo={photo} takePhoto={takePhoto} />
+        <ReportPostModal isReportModalOpen={isReportModalOpen} setIsReportModalOpen={setIsReportModalOpen} photo={photo} setPhotos={setPhotos} takePhoto={takePhoto} />
       </IonContent>
     </IonPage >
   );

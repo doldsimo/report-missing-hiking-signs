@@ -67,6 +67,7 @@ export function usePhotoGallery() {
 
     return {
         photo,
+        setPhotos,
         takePhoto,
         startCameraPreview,
         stopCameraPreview,
