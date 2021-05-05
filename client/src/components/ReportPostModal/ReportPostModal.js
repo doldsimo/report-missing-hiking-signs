@@ -39,8 +39,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, takeP
             <IonContent>
                 <div className="ion-padding">
                     <div style={{ maxWidth: "500px", margin: "auto" }}>
-                        <IonImg style={{ width: "100%", heigh: "auto" }} src={isPlatform("hybrid") ? photo : photo.dataUrl} />
-                        {/* <IonImg style={{ width: "100%", heigh: "auto" }} src={photo.dataUrl} /> */}
+                        <IonImg style={{ width: "100%", heigh: "auto" }} src={photo.dataUrl} />
                     </div>
                     <IonButton onClick={() => takePhoto(setIsReportModalOpen)}>Neues Bild</IonButton>
                     <IonItem>

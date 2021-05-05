@@ -80,7 +80,7 @@ const App = () => {
           duration={1500}
           onDidDismiss={() => setAlertMessage("")}
           message={alertMessage}
-          position="top"
+          position="bottom"
         />
       </IonReactRouter>
     </IonApp>

@@ -6,32 +6,22 @@ import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import { isPlatform } from '@ionic/react';
 import ReportHybrid from '../components/ReportHybrid/ReportHybrid';
 import ReportDesktop from '../components/ReportDesktop/ReportDesktop';
-import { Plugins } from "@capacitor/core";
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 const CameraTab = () => {
-  const { photo, takePhoto } = usePhotoGallery();
+  const { photo, takePhoto, startCameraPreview, stopCameraPreview, flipCameraPreview, takeImageCameraPreview } = usePhotoGallery();
   const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-  const [hybridPhoto, setHybridPhoto] = useState();
 
   useIonViewWillEnter(() => {
     if (isPlatform("hybrid")) {
-      ScreenOrientation.lock(ScreenOrientation.ORIENTATIONS.PORTRAIT);
-      Plugins.CameraPreview.start({
-        parent: "content",
-        toBack: true,
-        position: "rear",
-        storeToFile: "false",
-      });
+      startCameraPreview();
     }
   });
 
   useIonViewDidLeave(() => {
     if (isPlatform("hybrid")) {
-      ScreenOrientation.unlock();
-      Plugins.CameraPreview.stop();
+      stopCameraPreview();
     }
   });
 
@@ -48,22 +38,15 @@ const CameraTab = () => {
           <div >
             <IonButton
               style={{ zIndex: "99999" }}
-              onClick={() => {
-                Plugins.CameraPreview.flip();
-              }}
+              onClick={() => flipCameraPreview()}
             >
               Flip
             </IonButton>
             <IonButton
               style={{ zIndex: "99999" }}
               onClick={async () => {
-                const result = await Plugins.CameraPreview.capture({ quality: 50, height: 100, width: 100 });
-                console.log(result);
-                const base64PictureData = result.value;
-                console.log(base64PictureData);
-                setHybridPhoto(base64PictureData);
+                takeImageCameraPreview();
                 setIsReportModalOpen(true);
-
               }}
             >
               Take Image
@@ -117,11 +100,8 @@ const CameraTab = () => {
             </IonActionSheet>
           </>
         }
-        {console.log("Photo: ", hybridPhoto)}
 
-
-
-        <ReportPostModal isReportModalOpen={isReportModalOpen} setIsReportModalOpen={setIsReportModalOpen} photo={isPlatform("hybrid") ? hybridPhoto : photo} takePhoto={takePhoto} />
+        <ReportPostModal isReportModalOpen={isReportModalOpen} setIsReportModalOpen={setIsReportModalOpen} photo={photo} takePhoto={takePhoto} />
       </IonContent>
     </IonPage >
   );

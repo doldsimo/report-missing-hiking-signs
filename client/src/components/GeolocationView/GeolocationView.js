@@ -52,7 +52,7 @@ const GeolocationView = () => {
 
                 {locations.map((location, i) => {
                     return (
-                        <Marker key={i} position={location.coordinates} icon={BlueMarker()} >
+                        <Marker key={i} position={location.coordinates} icon={BlueMarker()}>
                             <Popup>
                                 Gemeldete Position
                                 <div onClick={() => {
@@ -68,7 +68,7 @@ const GeolocationView = () => {
                     );
                 })}
 
-                <Marker position={userLocation} icon={RedMarker()} zIndexOffset={100} >
+                <Marker position={userLocation} icon={RedMarker()} zIndexOffset={100}>
                     <Popup>
                         Dein Standort
                     </Popup>
