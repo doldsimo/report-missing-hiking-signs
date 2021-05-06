@@ -1,7 +1,9 @@
-import { IonButton } from '@ionic/react';
+import { IonButton, IonIcon } from '@ionic/react';
+import { locationOutline } from 'ionicons/icons';
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet';
 import { AlertContext } from '../../../context/AlertContext';
+import 'leaflet/dist/leaflet.css';
 
 import LocationService from '../../../hooks/useGeolocationService';
 import { RedMarker } from '../../MapMarker/MapMarker';
@@ -52,7 +54,9 @@ const OwnLocationMap = ({ userLocation, setUserLocation }) => {
                     <Popup>Dein Standort</Popup>
                 </Marker>
             </MapContainer>
-            <IonButton onClick={handleOnFlyTo}>Zu deiner Position</IonButton>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+                <IonButton onClick={handleOnFlyTo}><IonIcon icon={locationOutline} /></IonButton>
+            </div>
         </>
     )
 }

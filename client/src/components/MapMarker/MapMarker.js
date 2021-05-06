@@ -6,6 +6,7 @@ import markerShadow from '../../assets/mapMarker/marker-shadow.png';
 export function RedMarker() {
     return L.icon({
         iconUrl: redMarker,
+        iconRetinaUrl: redMarker,
         shadowUrl: markerShadow,
         iconSize: [25, 41],
         iconAnchor: [12, 41],
@@ -17,6 +18,7 @@ export function RedMarker() {
 export function BlueMarker() {
     return L.icon({
         iconUrl: blueMarker,
+        iconRetinaUrl: blueMarker,
         shadowUrl: markerShadow,
         iconSize: [25, 41],
         iconAnchor: [12, 41],

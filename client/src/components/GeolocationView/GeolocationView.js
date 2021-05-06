@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 // import Marker from 'react-leaflet-enhanced-marker';
 import { RedMarker, BlueMarker } from '../MapMarker/MapMarker';
 
@@ -52,7 +53,7 @@ const GeolocationView = () => {
 
                 {locations.map((location, i) => {
                     return (
-                        <Marker key={i} position={location.coordinates} icon={BlueMarker()}>
+                        <Marker key={i} position={location.coordinates} icon={BlueMarker()} detectRetina>
                             <Popup>
                                 Gemeldete Position
                                 <div onClick={() => {
@@ -68,7 +69,7 @@ const GeolocationView = () => {
                     );
                 })}
 
-                <Marker position={userLocation} icon={RedMarker()} zIndexOffset={100}>
+                <Marker position={userLocation} icon={RedMarker()} zIndexOffset={100} detectRetina>
                     <Popup>
                         Dein Standort
                     </Popup>

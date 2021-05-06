@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonModal, IonTextarea, IonTitle, IonToolbar, isPlatform } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonItem, IonItemDivider, IonLabel, IonModal, IonText, IonTextarea, IonTitle, IonToolbar, isPlatform } from '@ionic/react';
 import OwnLocationMap from './OwnLocationMap/OwnLocationMap';
 import * as api from '../../api/index';
 import { AlertContext } from '../../context/AlertContext';
 import { LocationsContext } from '../../context/LocationsContext';
-import { cameraOutline, imageOutline, star, syncOutline } from 'ionicons/icons';
+import { cameraOutline, imageOutline, scanOutline, star, syncOutline } from 'ionicons/icons';
 
 const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPhotos, takePhoto }) => {
     const cropperRef = useRef(null);
@@ -33,13 +33,6 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPh
         }
     }
 
-
-    // const onCrop = () => {
-    //     const imageElement = cropperRef?.current;
-    //     const cropper = imageElement?.cropper;
-
-    // };
-
     const rotateImage = () => {
         const imageElement = cropperRef?.current;
         const cropper = imageElement?.cropper;
@@ -57,7 +50,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPh
 
 
     return (
-        <IonModal isOpen={isReportModalOpen} onDidDismiss={() => { setIsReportModalOpen(false) }} onDidPresent={() => window.dispatchEvent(new Event('resize'))}>
+        <IonModal isOpen={isReportModalOpen} onDidDismiss={() => { setIsReportModalOpen(false); setIsCropped(false); setPhotos({ dataUrl: null }); }} onDidPresent={() => window.dispatchEvent(new Event('resize'))}>
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>Foto und Standort</IonTitle>
@@ -71,6 +64,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPh
             {console.log("Foto:", photo.dataUrl)}
             <IonContent>
                 <div className="ion-padding">
+
                     <div style={{ maxWidth: "550px", maxHeight: "450px", margin: "auto" }}>
                         {
                             isCropped ?
@@ -83,28 +77,36 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPh
                                     // Cropper.js options
                                     initialAspectRatio={16 / 9}
                                     guides={false}
-                                    // crop={onCrop}
                                     ref={cropperRef}
                                 />
                         }
                     </div>
+                    {!isCropped &&
+                        <div style={{ display: "flex", justifyContent: "space-around" }}>
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                <IonButton onClick={() => rotateImage()} color="medium"><IonIcon icon={syncOutline} /></IonButton>
+                                <IonButton onClick={() => handleCropImage()}><IonText></IonText> <IonIcon icon={scanOutline} /></IonButton>
+                            </div>
+                        </div>
+                    }
+                    <IonText>Neues Bild:</IonText>
                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                         <div style={{ display: "flex", flexDirection: "row" }}>
-                            {isPlatform("hybrid") ? <IonButton onClick={() => { takePhoto(setIsReportModalOpen); setIsCropped(false); }}><IonIcon icon={cameraOutline} /></IonButton> : null}
-                            <IonButton onClick={() => { takePhoto(setIsReportModalOpen, true); setIsCropped(false); }}><IonIcon icon={imageOutline} /></IonButton>
-                            <IonButton onClick={() => rotateImage()}><IonIcon icon={syncOutline} /></IonButton>
-                            <IonButton onClick={() => handleCropImage()}>Bild Zuschneiden</IonButton>
+                            {isPlatform("hybrid") ? <IonButton onClick={() => { takePhoto(setIsReportModalOpen); setIsCropped(false); }} color="medium"><IonIcon icon={cameraOutline} /></IonButton> : null}
+                            <IonButton onClick={() => { takePhoto(setIsReportModalOpen, true); setIsCropped(false); }} color="medium"><IonIcon icon={imageOutline} /></IonButton>
                         </div>
                     </div>
-                    <IonItem>
-                        <IonLabel position="floating">Beschreibungstext</IonLabel>
-                        <IonTextarea value={description} onIonChange={e => setdescription(e.detail.value)}></IonTextarea>
-                    </IonItem>
+                    <IonItemDivider />
                 </div>
                 <OwnLocationMap userLocation={userLocation} setUserLocation={setUserLocation} />
+                <IonItemDivider />
+                <IonItem>
+                    <IonLabel position="floating">Beschreibungstext</IonLabel>
+                    <IonTextarea value={description} onIonChange={e => setdescription(e.detail.value)}></IonTextarea>
+                </IonItem>
                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
 
-                    <IonButton onClick={handleSubmit} color="success">Abschicken</IonButton>
+                    <IonButton onClick={handleSubmit} color="success"><IonText>Abschicken</IonText></IonButton>
                 </div>
             </IonContent>
         </IonModal >
