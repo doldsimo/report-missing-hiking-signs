@@ -128,6 +128,10 @@ Bei Änderungen von nativem Code, oder beim Hinzufügen neuer Plugins muss folge
 
 Dies kopiert die Änderungen in das native Android Projekt
 
+In Android Studio Deployen:
+
+    npx cap open android
+
 [Ionic Dokumentation zum Deployen von Android und IOS Apps](https://ionicframework.com/docs/angular/your-first-app/6-deploying-mobile)
 
 ---
