@@ -6,9 +6,11 @@ import OwnLocationMap from './OwnLocationMap/OwnLocationMap';
 import * as api from '../../api/index';
 import { AlertContext } from '../../context/AlertContext';
 import { LocationsContext } from '../../context/LocationsContext';
-import { cameraOutline, imageOutline, scanOutline, star, syncOutline } from 'ionicons/icons';
+import { cameraOutline, imageOutline, scanOutline, syncOutline } from 'ionicons/icons';
+import { usePhotoGallery } from '../../hooks/usePhotoGallery';
 
 const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPhotos, takePhoto }) => {
+    const { startCameraPreview, stopCameraPreview } = usePhotoGallery();
     const cropperRef = useRef(null);
     const [description, setdescription] = useState("");
     const [isCropped, setIsCropped] = useState(false)
@@ -43,14 +45,13 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPh
         const imageElement = cropperRef?.current;
         const cropper = imageElement?.cropper;
         const imageUrl = cropper.getCroppedCanvas().toDataURL();
-        console.log("Data: ", imageUrl);
         setPhotos({ dataUrl: imageUrl })
         setIsCropped(true);
     }
 
 
     return (
-        <IonModal isOpen={isReportModalOpen} onDidDismiss={() => { setIsReportModalOpen(false); setIsCropped(false); setPhotos({ dataUrl: null }); }} onDidPresent={() => window.dispatchEvent(new Event('resize'))}>
+        <IonModal isOpen={isReportModalOpen} onDidDismiss={() => { setIsReportModalOpen(false); setIsCropped(false); setPhotos({}); startCameraPreview() }} onDidPresent={() => { window.dispatchEvent(new Event('resize')); stopCameraPreview(); }} >
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>Foto und Standort</IonTitle>
@@ -105,7 +106,6 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPh
                     <IonTextarea value={description} onIonChange={e => setdescription(e.detail.value)}></IonTextarea>
                 </IonItem>
                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-
                     <IonButton onClick={handleSubmit} color="success"><IonText>Abschicken</IonText></IonButton>
                 </div>
             </IonContent>

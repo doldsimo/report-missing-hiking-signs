@@ -1,15 +1,13 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonActionSheet, IonText, useIonViewDidLeave, useIonViewWillEnter, IonButton } from '@ionic/react';
-import { camera, imagesOutline } from 'ionicons/icons';
+import { camera, imagesOutline, refreshOutline } from 'ionicons/icons';
 import React, { useState, useContext, useEffect } from 'react';
 import ReportPostModal from '../components/ReportPostModal/ReportPostModal';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import { isPlatform } from '@ionic/react';
-import ReportHybrid from '../components/ReportHybrid/ReportHybrid';
-import ReportDesktop from '../components/ReportDesktop/ReportDesktop';
 
 
 const CameraTab = () => {
-  const { photo, setPhotos, takePhoto, startCameraPreview, stopCameraPreview, flipCameraPreview, takeImageCameraPreview} = usePhotoGallery();
+  const { photo, setPhotos, takePhoto, startCameraPreview, stopCameraPreview, flipCameraPreview, takeImageCameraPreview } = usePhotoGallery();
   const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
@@ -35,34 +33,35 @@ const CameraTab = () => {
       </IonHeader>
       <IonContent fullscreen id="content" className="content-camera-preview" >
         {isPlatform("hybrid") ?
-          <div >
-            <IonButton
-              style={{ zIndex: "99999" }}
-              onClick={() => flipCameraPreview()}
-            >
-              Flip
-            </IonButton>
-            <IonButton
-              style={{ zIndex: "99999" }}
-              onClick={async () => {
+          <>
+            <IonFab vertical="bottom" horizontal="center" slot="fixed">
+              <IonFabButton onClick={() => {
                 takeImageCameraPreview();
                 setIsReportModalOpen(true);
-              }}
-            >
-              Take Image
-        </IonButton>
-          </div>
+              }}>
+                <IonIcon icon={camera}></IonIcon>
+              </IonFabButton>
+            </IonFab>
+            <IonFab vertical="bottom" horizontal="start" slot="fixed">
+              <IonFabButton color="medium" size="small" onClick={() => flipCameraPreview()}>
+                <IonIcon icon={refreshOutline}></IonIcon>
+              </IonFabButton>
+            </IonFab>
+            <IonFab vertical="bottom" horizontal="end" slot="fixed"  >
+              <IonFabButton color="medium" size="small" onClick={() => takePhoto(setIsReportModalOpen, true)}>
+                <IonIcon icon={imagesOutline}></IonIcon>
+              </IonFabButton>
+            </IonFab>
+          </>
           :
           <>
             <IonText>Melde fehlende Beschilderungen</IonText>
-
 
             <IonFab vertical="bottom" horizontal="center" slot="fixed">
               <IonFabButton onClick={() => setIsActionSheetOpen(true)}>
                 <IonIcon icon={camera}></IonIcon>
               </IonFabButton>
             </IonFab>
-
 
             <IonActionSheet
               isOpen={isActionSheetOpen}
