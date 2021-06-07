@@ -4,6 +4,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import ReportPostModal from '../components/ReportPostModal/ReportPostModal';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import { isPlatform } from '@ionic/react';
+import HikingImg from '../assets/img/hiking.png';
 
 
 const CameraTab = () => {
@@ -55,7 +56,12 @@ const CameraTab = () => {
           </>
           :
           <>
-            <IonText>Melde fehlende Beschilderungen</IonText>
+            <div className="ion-padding" style={{ display: "flex", justifyContent: "center" }}>
+              <img src={HikingImg} style={{ maxHeight: "50vh", width: "auto" }} />
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <IonText className="ion-padding">Melde fehlende Beschilderungen</IonText>
+            </div>
 
             <IonFab vertical="bottom" horizontal="center" slot="fixed">
               <IonFabButton onClick={() => setIsActionSheetOpen(true)}>

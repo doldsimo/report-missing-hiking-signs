@@ -1,7 +1,6 @@
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Capacitor } from "@capacitor/core";
-import { isPlatform } from '@ionic/react';
 
 import { Plugins } from '@capacitor/core';
 
