@@ -132,7 +132,7 @@ In Android Studio Deployen:
 
     npx cap open android
     
-Erstellen eines Optimierten Android Builds, welcher zum veröffentlichen gedacht ist:
+Erstellen eines optimierten Android Build, welcher zum Veröffentlichen gedacht ist:
 
     ionic capacitor build android
 
