@@ -131,6 +131,10 @@ Dies kopiert die Änderungen in das native Android Projekt
 In Android Studio Deployen:
 
     npx cap open android
+    
+Erstellen eines Optimierten Android Builds, welcher zum veröffentlichen gedacht ist:
+
+    ionic capacitor build android
 
 [Ionic Dokumentation zum Deployen von Android und IOS Apps](https://ionicframework.com/docs/angular/your-first-app/6-deploying-mobile)
 
