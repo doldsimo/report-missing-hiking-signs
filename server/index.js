@@ -20,7 +20,7 @@ app.use(cors());
 // Prefix for all reportPosts Routes
 app.use('/reportPosts', reportPostRoutes);
 
-app.get('/hello-world', (req, res)=> {
+app.get('/', (req, res)=> {
     res.send('Hello World');
 });
 
