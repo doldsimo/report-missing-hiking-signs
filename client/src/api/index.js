@@ -9,4 +9,4 @@ const API = axios.create({ baseURL: 'http://192.168.2.113:5000' });
 
 export const fetchReportPostsCoordinates = () => API.get('/reportPosts');
 export const fetchReportPost = (id) => API.get('/reportPosts/post/?id=' + id);
-export const createReportPosts = (newReportPost) => API.post('/reportPosts', newReportPost)
+export const createReportPosts = (newReportPost) => API.post('/reportPosts', newReportPost);

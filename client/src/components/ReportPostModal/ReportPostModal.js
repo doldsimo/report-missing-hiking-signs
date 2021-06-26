@@ -33,6 +33,7 @@ const ReportPostModal = ({ isReportModalOpen, setIsReportModalOpen, photo, setPh
             setAlertMessage("Etwas ist schief gelaufen");
             setIsLoading(false);
         }
+        setUserLocation([48.051776, 8.206841]);
     }
 
     const rotateImage = () => {
