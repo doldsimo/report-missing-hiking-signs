@@ -2,6 +2,11 @@
 
 Repository für das Seminar **Aktuelle Entwicklungen im Bereich Online Medien**
 
+Web-App:
+https://report-missing-hiking-signs.netlify.app/
+
+Android und IOS App müssen über Android Studio oder Xcode deployt werden.
+
 ---
 
 ## Inhaltsverzeichnis
